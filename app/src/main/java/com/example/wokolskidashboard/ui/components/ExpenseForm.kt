@@ -10,12 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ExpenseForm(){
+fun ExpenseForm(
+    WokulskiTextFieldChanged: (String) -> Unit,
+    WokulskiButtonClicked: () -> Unit
+){
     Column(modifier = Modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        WokulskiTextField("Hello!!")
-        WokulskiButton("Click me!!!", {})
+        WokulskiTextField("Hello!!", WokulskiTextFieldChanged)
+        WokulskiButton("Click me!!!", WokulskiButtonClicked)
     }
 }
 
