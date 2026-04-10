@@ -23,7 +23,7 @@ fun WokulskiTextField(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        TextField(value = "adsad", onValueChange = onTextValueChange, modifier = Modifier.padding(4.dp))
+        TextField(value=text,onValueChange = onTextValueChange, modifier = Modifier.padding(4.dp))
     }
 }
 

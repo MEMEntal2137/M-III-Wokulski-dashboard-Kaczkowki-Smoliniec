@@ -30,13 +30,13 @@ fun ExpenseForm(
         horizontalAlignment = Alignment.CenterHorizontally) {
 
         Text(text = "Wydatki")
-        WokulskiTextField("Nowy wydatek", onTextValueChange = expenseNameChanged)
+        WokulskiTextField(expenseName, onTextValueChange = expenseNameChanged)
         Text(text = "Kwota")
-        WokulskiTextField("", onTextValueChange = expenseValueChanged)
+        WokulskiTextField(expenseValue.toString(), onTextValueChange = expenseValueChanged)
         Row(modifier = Modifier.padding(top = 16.dp), verticalAlignment = Alignment.CenterVertically) {
             Text("Wydatek zbyteczny")
             Switch(modifier = Modifier.padding(10.dp),
-                checked = false, onCheckedChange = isWastefulValueChanged)
+                checked = isWasteful, onCheckedChange = isWastefulValueChanged)
         }
         Spacer(Modifier.height(10.dp))
         WokulskiButton("Dodaj wydatek", Clicked = WokulskiButtonClicked)
