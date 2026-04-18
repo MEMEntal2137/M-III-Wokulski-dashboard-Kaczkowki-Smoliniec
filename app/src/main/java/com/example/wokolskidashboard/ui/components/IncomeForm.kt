@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -15,29 +16,30 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun IncomeForm(
-    
+    incomeName: String,
+    incomeValue: Double,
+    incomeNameChanged: (String) -> Unit,
+    incomeValueChanged: (String) -> Unit,
+    wokulskiButtonClicked: () -> Unit
 ){
-    Column(){
-        Text(
-            text = "Income"
-        )
-        TextField(
-            value="Jakis tekst",
-            onValueChange = {},
-            label = {Text(text = "Wprowadź nazwę przedmiotu:")},
-            singleLine = true
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        Button(
-            modifier = Modifier.align ( Alignment.CenterHorizontally ),
-            onClick = {}) {
-            Text("Prześlij")
-        }
-    }
+    Text("Dochody")
+    WokulskiTextField(incomeName, onTextValueChange = incomeNameChanged)
+    Text("Zysk")
+    WokulskiTextField(incomeValue.toString(), onTextValueChange = incomeValueChanged)
+    Spacer(Modifier.height(10.dp))
+    WokulskiButton("Dodaj dochód", Clicked = wokulskiButtonClicked)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun IncomeFormPreview(){
-    IncomeForm()
+    MaterialTheme{
+        IncomeForm(
+            "Rękwaiczki Paryskie",
+            12.0,
+            {},
+            {},
+            {}
+        )
+    }
 }

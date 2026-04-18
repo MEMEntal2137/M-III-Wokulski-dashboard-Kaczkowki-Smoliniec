@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.wokolskidashboard.model.Transaction
 import com.example.wokolskidashboard.ui.components.BalanceHeader
 import com.example.wokolskidashboard.ui.components.ExpenseForm
+import com.example.wokolskidashboard.ui.components.IncomeForm
 import com.example.wokolskidashboard.ui.components.TransactionCard
 
 @Composable
@@ -28,6 +30,10 @@ fun MainScreen(modifier: Modifier = Modifier){
     var isWasteful by remember { mutableStateOf(false) }
     var nextExpenseId by remember { mutableIntStateOf(1)}
     var expenseList = remember { mutableStateListOf<Transaction>()}
+
+    var incomeName by remember { mutableStateOf("") }
+    var incomeValue by remember { mutableDoubleStateOf(0.0) }
+    var nextIncomeId by remember { mutableIntStateOf(1) }
 
 
     Column(modifier = Modifier, verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
@@ -51,5 +57,15 @@ fun MainScreen(modifier: Modifier = Modifier){
                 TransactionCard(expense)
             })
         }
+        Spacer(Modifier.width(10.dp))
+        IncomeForm(
+            incomeName=incomeName,
+            incomeValue=incomeValue,
+            incomeNameChanged= {incomeName=it},
+            incomeValueChanged = {incomeValue=it.toDouble()},
+            {
+                val income = Transaction(nextIncomeId, incomeName, incomeValue, true)
+            }
+        )
     }
 }
