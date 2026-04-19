@@ -1,5 +1,6 @@
 package com.example.wokolskidashboard.ui.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -20,15 +21,19 @@ fun IncomeForm(
     incomeValue: Double,
     incomeNameChanged: (String) -> Unit,
     incomeValueChanged: (String) -> Unit,
-    wokulskiButtonClicked: () -> Unit
+    wokulskiButtonClicked: () -> Unit,
 ){
-    Text("Dochody")
-    WokulskiTextField(incomeName, onTextValueChange = incomeNameChanged)
-    Text("Zysk")
-    WokulskiTextField(incomeValue.toString(), onTextValueChange = incomeValueChanged)
-    Spacer(Modifier.height(10.dp))
-    WokulskiButton("Dodaj dochód", Clicked = wokulskiButtonClicked)
-}
+    Column(modifier = Modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Text("Dochody")
+        WokulskiTextField(incomeName, onTextValueChange = incomeNameChanged)
+        Text("Zysk")
+        WokulskiTextField(incomeValue.toString(), onTextValueChange = incomeValueChanged)
+        Spacer(Modifier.height(10.dp))
+        WokulskiButton("Dodaj dochód", Clicked = wokulskiButtonClicked)
+    }
+    }
 
 @Preview(showBackground = true)
 @Composable
@@ -39,7 +44,7 @@ fun IncomeFormPreview(){
             12.0,
             {},
             {},
-            {}
+            {},
         )
     }
 }

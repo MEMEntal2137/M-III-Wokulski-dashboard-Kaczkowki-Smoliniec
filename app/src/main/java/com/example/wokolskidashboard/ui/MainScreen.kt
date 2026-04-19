@@ -34,9 +34,11 @@ fun MainScreen(modifier: Modifier = Modifier){
     var incomeName by remember { mutableStateOf("") }
     var incomeValue by remember { mutableDoubleStateOf(0.0) }
     var nextIncomeId by remember { mutableIntStateOf(1) }
+    var saldo by remember { mutableDoubleStateOf(0.0) }
 
 
     Column(modifier = Modifier, verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        BalanceHeader(saldo = saldo)
         ExpenseForm(
             expenseName = expenseName,
             expenseValue = expenseValue,
@@ -48,8 +50,21 @@ fun MainScreen(modifier: Modifier = Modifier){
                 val expense = Transaction(nextExpenseId, expenseName, expenseValue, false, isWasteful)
                 expenseList.add(expense)
                 nextExpenseId++
+                saldo-=expense.kwota
             }
         )
+        Spacer(Modifier.width(10.dp))
+        IncomeForm(
+            incomeName=incomeName,
+            incomeValue=incomeValue,
+            incomeNameChanged= {incomeName=it},
+            incomeValueChanged = {incomeValue=it.toDouble()},
+            wokulskiButtonClicked =  {
+                val income = Transaction(nextIncomeId, incomeName, incomeValue, true)
+                expenseList.add(income)
+                nextIncomeId++
+                saldo+=income.kwota
+            })
         Spacer(Modifier.height(10.dp))
         LazyColumn() {
             items(expenseList.size, itemContent = { index ->
@@ -57,15 +72,5 @@ fun MainScreen(modifier: Modifier = Modifier){
                 TransactionCard(expense)
             })
         }
-        Spacer(Modifier.width(10.dp))
-        IncomeForm(
-            incomeName=incomeName,
-            incomeValue=incomeValue,
-            incomeNameChanged= {incomeName=it},
-            incomeValueChanged = {incomeValue=it.toDouble()},
-            {
-                val income = Transaction(nextIncomeId, incomeName, incomeValue, true)
-            }
-        )
     }
 }
