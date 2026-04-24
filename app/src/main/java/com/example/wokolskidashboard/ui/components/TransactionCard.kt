@@ -21,7 +21,7 @@ import com.example.wokolskidashboard.model.Transaction
 fun TransactionCard(
     transaction: Transaction,
 ){
-    val borderColor = if(transaction.czyPrzychod){Color.Red} else{Color.Green} // Zmiana w zaleznosci Panie Piotrze
+    val borderColor = if(transaction.czyPrzychod){Color.Green} else{Color.Red} // Zmiana w zaleznosci Panie Piotrze
     Column(Modifier
         .border(2.dp, borderColor)
         .padding(10.dp)
