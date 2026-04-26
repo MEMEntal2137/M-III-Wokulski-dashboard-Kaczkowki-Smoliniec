@@ -28,12 +28,17 @@ fun TransactionCard(
         .border(2.dp, borderColor)
         .padding(10.dp)
         ){
-        Text("${transaction.nazwa} - ${transaction.kwota} - ${if(transaction.zbyteczny!!){
-            "Niezbyteczny"
+        if(transaction.czyPrzychod) {
+            Text("${transaction.nazwa} - ${transaction.kwota}")
         }else{
-            "Zbyteczny"
+            Text("${transaction.nazwa} - ${transaction.kwota} - ${
+                if(transaction.zbyteczny!!){
+                    "Zbyteczny"
+                }else{
+                    "Niezbyteczny"
+                }
+            }")
         }
-        }")
     }
 }
 
