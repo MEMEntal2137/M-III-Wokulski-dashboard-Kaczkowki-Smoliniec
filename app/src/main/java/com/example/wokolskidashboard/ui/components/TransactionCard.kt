@@ -22,11 +22,18 @@ fun TransactionCard(
     transaction: Transaction,
 ){
     val borderColor = if(transaction.czyPrzychod){Color.Green} else{Color.Red} // Zmiana w zaleznosci Panie Piotrze
+    if(transaction.zbyteczny == null) transaction.zbyteczny = false
+
     Column(Modifier
         .border(2.dp, borderColor)
         .padding(10.dp)
         ){
-        Text("${transaction.nazwa} : ${transaction.kwota}")
+        Text("${transaction.nazwa} - ${transaction.kwota} - ${if(transaction.zbyteczny!!){
+            "Niezbyteczny"
+        }else{
+            "Zbyteczny"
+        }
+        }")
     }
 }
 
