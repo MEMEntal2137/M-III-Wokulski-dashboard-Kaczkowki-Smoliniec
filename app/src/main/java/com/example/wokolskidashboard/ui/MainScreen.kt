@@ -1,11 +1,18 @@
 package com.example.wokolskidashboard.ui
 
+import android.R
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
@@ -16,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.wokolskidashboard.model.Transaction
 import com.example.wokolskidashboard.ui.components.BalanceHeader
@@ -37,7 +45,7 @@ fun MainScreen(modifier: Modifier = Modifier){
     var saldo by remember { mutableDoubleStateOf(0.0) }
 
 
-    Column(modifier = Modifier, verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(modifier = Modifier.background(Color.Gray).fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         BalanceHeader(saldo = saldo)
         ExpenseForm(
             expenseName = expenseName,
@@ -47,10 +55,19 @@ fun MainScreen(modifier: Modifier = Modifier){
             expenseValueChanged = {expenseValue = it.toDouble()},
             isWastefulValueChanged = {isWasteful = it},
             {
-                val expense = Transaction(nextExpenseId, expenseName, expenseValue, false, isWasteful)
-                expenseList.add(expense)
-                nextExpenseId++
-                saldo-=expense.kwota
+                if (saldo>0) {
+                    if (expenseName != "" && expenseValue > 0) {
+                        val expense =
+                            Transaction(nextExpenseId, expenseName, expenseValue, false, isWasteful)
+                        expenseList.add(expense)
+                        nextExpenseId++
+                        saldo -= expense.kwota
+                        expenseName = ""
+                        expenseValue = 0.0
+                    }
+                }else{
+                    expenseName="Wydatek zbyt duży"
+                }
             }
         )
         Spacer(Modifier.width(10.dp))
@@ -58,12 +75,16 @@ fun MainScreen(modifier: Modifier = Modifier){
             incomeName=incomeName,
             incomeValue=incomeValue,
             incomeNameChanged= {incomeName=it},
-            incomeValueChanged = {incomeValue=it.toDouble()},
+            incomeValueChanged = {incomeValue = it.toDouble()},
             wokulskiButtonClicked =  {
-                val income = Transaction(nextIncomeId, incomeName, incomeValue, true)
-                expenseList.add(income)
-                nextIncomeId++
-                saldo+=income.kwota
+                if(incomeName!="" && incomeValue>0) {
+                    val income = Transaction(nextIncomeId, incomeName, incomeValue, true)
+                    expenseList.add(income)
+                    nextIncomeId++
+                    saldo += income.kwota
+                    incomeName=""
+                    incomeValue=0.0
+                }
             })
         Spacer(Modifier.height(10.dp))
         LazyColumn() {

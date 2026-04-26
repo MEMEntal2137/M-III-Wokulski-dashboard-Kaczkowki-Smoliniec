@@ -37,7 +37,7 @@ fun WokulskiButton(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        androidx.compose.material3.Button(onClick = Clicked, modifier = Modifier) {
+        androidx.compose.material3.Button( onClick = Clicked, modifier = Modifier) {
             Text(text)
         }
     }
