@@ -49,6 +49,8 @@ fun MainScreen(modifier: Modifier = Modifier){
     var saldo by remember { mutableDoubleStateOf(0.0) }
     var expenseError by remember { mutableStateOf("") }
 
+    var errorColor by remember { mutableStateOf(Color.Red) }
+
 
     Column(modifier = Modifier.background(Color.Gray).fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         BalanceHeader(saldo = saldo)
@@ -71,6 +73,7 @@ fun MainScreen(modifier: Modifier = Modifier){
                         expenseName = ""
                         expenseValue = 0.0
                         expenseError = "Zarejestrowano pomyślnie!"
+                        errorColor = Color.Green
                     }
                 }else{
                     expenseError = "Brak wystarczających środków"
@@ -78,7 +81,7 @@ fun MainScreen(modifier: Modifier = Modifier){
             }
         )
         if (expenseError.isNotEmpty()) {
-            Text(text = expenseError, color = Color.Red)
+            Text(text = expenseError, color = errorColor)
         }
         Spacer(Modifier.height(20.dp))
         IncomeForm(

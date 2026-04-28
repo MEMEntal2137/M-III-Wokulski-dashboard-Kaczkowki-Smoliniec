@@ -19,7 +19,7 @@ import com.example.wokolskidashboard.model.Transaction
 fun BalanceHeader(
     saldo: Double
 ){
-    Column(modifier = Modifier.border(1.dp, Color.Black).padding(2.dp)){
+    Column(modifier = Modifier.padding(2.dp)){
         Text("$saldo Rubli", fontSize = 20.sp)
     }
 
